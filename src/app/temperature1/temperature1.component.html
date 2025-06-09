@@ -36,6 +36,16 @@
   <button (click)="submit()" class="btn btn-primary mt-3">Show Initial Conditions</button>
 
   <h3 class="my-4">Simulate heat propagation</h3>
+  <div class="alert alert-info mt-3">
+    <strong>Stability Recommendation:</strong> To ensure stable simulation results, choose the time step <code>dt</code> such that the condition 
+    <code>α · dt · (1/Δx² + 1/Δy²) ≤ 0.5</code> is satisfied, where:
+    <ul>
+      <li><code>α</code> is thermal diffusivity (m²/s)</li>
+      <li><code>Δx</code> = x width / number of width grid points</li>
+      <li><code>Δy</code> = y height / number of height grid points</li>
+    </ul>
+    Decrease <code>dt</code> or increase spatial resolution if instability occurs.
+  </div>
 
   <div class="form-grid">
     <!-- Simulation parameters -->
