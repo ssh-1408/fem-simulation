@@ -1,1 +1,96 @@
-<p>flow works!</p>
+<div class="container mb-4">
+  <h2 class="my-4">2D Flow Calculation Setup</h2>
+  <div class="description my-4">
+    <p>
+      This simulation models <strong>incompressible fluid flow through a 2D pipe</strong> using the Navier–Stokes equations.
+    </p>
+    <p style="font-family: monospace;">
+      ∂u/∂t + u·∇u = -∇p + ν∇²u<br>
+      ∇·u = 0
+    </p>
+    <p>
+      where <em>u</em> is the velocity vector field, <em>p</em> is pressure, and <em>ν</em> is the kinematic viscosity.
+    </p>
+    <p>
+      The domain represents a pipe with fixed pressure at the inlet and outlet. 
+      The simulation evolves the flow field over time to compute the velocity distribution under these conditions.
+    </p>
+    <p>
+      Boundary conditions are applied such that:
+    </p>
+    <ul>
+      <li><strong>Inlet:</strong> specified pressure and parabolic or uniform velocity profile</li>
+      <li><strong>Outlet:</strong> lower fixed pressure (relative to inlet)</li>
+      <li><strong>Walls:</strong> no-slip condition (velocity = 0)</li>
+    </ul>
+  </div>
+
+
+  <div class="form-grid">
+    <!-- Physical size in meters -->
+    <label>X-Width (m): <input type="number" [(ngModel)]="physicalWidth" (ngModelChange)="submitFlow()" /></label>
+    <label>Y-Height (m): <input type="number" [(ngModel)]="physicalHeight" (ngModelChange)="submitFlow()" /></label>
+    <!-- Spatial Steps -->
+    <label>Number of Grid Points X: <input type="number" [(ngModel)]="widthNumber" (ngModelChange)="submitFlow()" /></label>
+    <label>Number of Grid Points Y: <input type="number" [(ngModel)]="heightNumber" (ngModelChange)="submitFlow()" /></label>
+    
+    <!-- Boundary temperatures -->
+    <label>Pressure Inlet (Pa): <input type="number" [(ngModel)]="boundaryPressure.inlet" (ngModelChange)="submitFlow()" /></label>
+    <label>Pressure Outlet (Pa): <input type="number" [(ngModel)]="boundaryPressure.outlet" (ngModelChange)="submitFlow()" /></label>
+  </div>
+
+  <div *ngIf="initialImageFlow">
+  <h5>Initial Flow Field:</h5>
+  <img [src]="initialImageFlow" alt="Initial flow field" />
+</div>
+
+<button (click)="submitFlow()" class="btn btn-primary mt-3">Show Initial Flow Conditions</button>
+
+<h3 class="my-4">Simulate Flow Propagation</h3>
+
+<div class="alert alert-info mt-3">
+  <strong>Stability Recommendation:</strong> To ensure numerical stability, choose the time step <code>dt</code> to satisfy the CFL condition:
+  <code>ν · dt · (1/Δx² + 1/Δy²) ≤ 0.5</code>, where:
+  <ul>
+    <li><code>ν</code> is the kinematic viscosity (m²/s)</li>
+    <li><code>Δx</code> = physical width / number of width grid points</li>
+    <li><code>Δy</code> = physical height / number of height grid points</li>
+  </ul>
+  Decrease <code>dt</code> or increase spatial resolution if the simulation becomes unstable.
+</div>
+
+<div class="form-grid">
+  <!-- Simulation parameters -->
+  <label>Kinematic Viscosity, ν (m²/s): 
+    <input type="number" [(ngModel)]="viscosity" />
+  </label>
+  <label>Time Step (s): 
+    <input type="number" [(ngModel)]="dt" />
+  </label>
+  <label>Number of Time Steps: 
+    <input type="number" [(ngModel)]="steps" />
+  </label>
+</div>
+
+<button (click)="submitFinalFlow()" class="btn btn-primary mt-3">
+  Simulate Flow Propagation
+</button>
+
+<div *ngIf="evolvedImageFlow">
+  <h5 class="my-4">Flow Visualization After Simulation</h5>
+  <img [src]="evolvedImageFlow" alt="Flow result" />
+</div>
+
+
+
+
+ 
+</div>
+
+
+
+
+
+
+
+
