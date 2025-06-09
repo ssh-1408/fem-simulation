@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home"><span>FEM</span>Simulate</a>
+    <button
+      class="navbar-toggler d-lg-none"
+      type="button"
+      (click)="toggleNavbar()"
+      [class.open]="isNavbarOpen"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      >
+      <span class="custom-toggler-icon">
+      <span class="toggler-line"></span>
+      <span class="toggler-line"></span>
+      <span class="toggler-line"></span>
+    </span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" (click)="collapseNavbar()">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/temperature1" (click)="collapseNavbar()">Heat Calculation 2D</a>
+        </li>     
+      </ul>
+    </div>
+  </div>
+</nav>
+
+

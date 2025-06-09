@@ -1,0 +1,71 @@
+<div class="container mb-4">
+  <h2 class="my-4">2D Heat calculation Setup</h2>
+  <div class="description my-4">
+  <p>
+    This simulation solves the <strong>2D heat conduction equation</strong> in a rectangular domain:
+  </p>
+  <p style="font-family: monospace;">
+    ∂T/∂t = α (∂²T/∂x² + ∂²T/∂y²)
+  </p>
+  <p>
+    where <em>T</em> is the temperature, <em>t</em> is time, <em>x</em> and <em>y</em> are spatial dimensions,
+    and <em>α</em> is the thermal diffusivity of the material. The simulation applies fixed temperatures at the boundaries and evolves the temperature field over time.
+  </p>
+</div>
+
+  <div class="form-grid">
+    <!-- Physical size in meters -->
+    <label>X-Width (m): <input type="number" [(ngModel)]="physicalWidth" (ngModelChange)="submit()" /></label>
+    <label>Y-Height (m): <input type="number" [(ngModel)]="physicalHeight" (ngModelChange)="submit()" /></label>
+    <!-- Spatial Steps -->
+    <label>Number of Grid Points X: <input type="number" [(ngModel)]="widthNumber" (ngModelChange)="submit()" /></label>
+    <label>Number of Grid Points Y: <input type="number" [(ngModel)]="heightNumber" (ngModelChange)="submit()" /></label>
+    
+    <!-- Boundary temperatures -->
+    <label>Bottom Temperature (°C): <input type="number" [(ngModel)]="boundaryTemps.top" (ngModelChange)="submit()" /></label>
+    <label>Top Temperature (°C): <input type="number" [(ngModel)]="boundaryTemps.bottom" (ngModelChange)="submit()" /></label>
+    <label>Left Temperature (°C): <input type="number" [(ngModel)]="boundaryTemps.left" (ngModelChange)="submit()" /></label>
+    <label>Right Temperature (°C): <input type="number" [(ngModel)]="boundaryTemps.right" (ngModelChange)="submit()" /></label>
+  </div>
+
+  <div *ngIf="initialImage">
+    <h5>Initial Temperature Distribution:</h5>
+   <img [src]="initialImage" alt="Initial heatmap" />
+  </div>
+
+  <button (click)="submit()" class="btn btn-primary mt-3">Show Initial Conditions</button>
+
+  <h3 class="my-4">Simulate heat propagation</h3>
+
+  <div class="form-grid">
+    <!-- Simulation parameters -->
+    <label>Thermal Diffusivity, alpha (m²/s): 
+      <input type="number" [(ngModel)]="alpha" />
+    </label>
+    <label>Time Step (s): 
+      <input type="number" [(ngModel)]="dt" />
+    </label>
+    <label>Number of Time Steps: 
+      <input type="number" [(ngModel)]="steps" />
+    </label>
+  </div>
+
+  <button (click)="submitFinal()" class="btn btn-primary mt-3">
+  Simulate Heat Propagation </button>
+
+  <div *ngIf="evolvedImage">
+    <h5 class="my-4">Temperature Distribution after {{ steps*dt }} seconds</h5>
+    <img [src]="evolvedImage" alt="Simulated heatmap" />
+  </div>
+
+
+
+ 
+</div>
+
+
+
+
+
+
+

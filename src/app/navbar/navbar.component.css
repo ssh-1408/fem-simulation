@@ -1,0 +1,72 @@
+/* Basic navbar styling */
+.navbar {
+  background-color: #f8f9fa; /* Light background */
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.navbar-brand span {
+  color: #007bff; /* FEM highlight */
+}
+
+.nav-link {
+  font-size: 1rem;
+  margin-right: 1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #0056b3;
+}
+
+/* Custom hamburger icon */
+.custom-toggler-icon {
+  display: inline-block;
+  cursor: pointer;
+  width: 25px;
+  height: 20px;
+  position: relative;
+}
+
+.toggler-line {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.toggler-line:nth-child(1) {
+  top: 0;
+}
+
+.toggler-line:nth-child(2) {
+  top: 8px;
+}
+
+.toggler-line:nth-child(3) {
+  top: 16px;
+}
+
+/* Animation for toggled state */
+.navbar-toggler.open .toggler-line:nth-child(1) {
+  transform: rotate(45deg);
+  top: 8px;
+}
+
+.navbar-toggler.open .toggler-line:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggler.open .toggler-line:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 8px;
+}
