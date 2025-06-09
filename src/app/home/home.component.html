@@ -1,25 +1,28 @@
 <div class="container mb-4">
-  <h2 class="my-4 text-primary">2D Heat Equation Simulation</h2>
+  <h2 class="my-4 text-primary">2D Physics Simulation Platform</h2>
 
   <div class="description my-4">
     <p>
-      This application simulates <strong class="text-primary">2D heat diffusion</strong> over time using a finite difference method for solving the heat equation. 
-      The rectangular simulation domain allows for user-defined boundary conditions and material properties.
+      This application simulates <strong class="text-primary">2D heat diffusion</strong> and <strong class="text-primary">2D fluid flow</strong> using finite difference methods for solving partial differential equations over a rectangular domain. 
+      Users can define boundary conditions and material properties for each type of simulation.
     </p>
 
     <p class="fw-bold text-primary">Project Architecture:</p>
     <ul>
-      <li><strong>Frontend:</strong> Built with <span class="text-primary">Angular</span>, it provides an interactive interface for parameter input and real-time heatmap visualization.</li>
-      <li><strong>Backend:</strong> Developed using <span class="text-primary">FastAPI</span>, it performs numerical simulations and handles HTTP requests efficiently.</li>
-      <li><strong>Computation:</strong> <span class="text-primary">NumPy</span> is used for matrix operations and implementing the finite difference scheme for temperature updates.</li>
-      <li><strong>Visualization:</strong> <span class="text-primary">Matplotlib</span> generates high-resolution heatmaps that are encoded and sent to the frontend.</li>
-      <li><strong>Communication:</strong> The frontend and backend communicate via <span class="text-primary">RESTful APIs</span> using JSON payloads.</li>
+      <li><strong>Frontend:</strong> Built with <span class="text-primary">Angular</span>, it provides an interactive interface for input and real-time visualizations.</li>
+      <li><strong>Backend:</strong> Developed using <span class="text-primary">FastAPI</span> to handle computational requests efficiently.</li>
+      <li><strong>Computation:</strong> <span class="text-primary"> NumPy</span> is used for numerical operations and iterative solvers.</li>
+      <li><strong>Visualization:</strong> <span class="text-primary"> Matplotlib</span> generates high-resolution images of simulation states.</li>
+      <li><strong>Communication:</strong> JSON-based <span class="text-primary">RESTful APIs</span> connect frontend to backend.</li>
     </ul>
 
     <p class="mt-3">
-      This simulation platform demonstrates the power of combining scientific Python tools with modern frontend frameworks to create responsive and educational scientific applications.
+      This platform demonstrates how scientific computing tools in Python can be combined with modern web technologies for educational and research purposes.
     </p>
 
-    <button class="btn btn-primary mt-3">Explore Simulation</button>
+    <div class="mt-4">
+      <a routerLink="/temperature1" class="btn btn-primary me-3">Heat Simulation</a>
+      <a routerLink="/flow" class="btn btn-outline-primary">Flow Simulation</a>
+    </div>
   </div>
 </div>
