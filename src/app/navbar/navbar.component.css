@@ -1,6 +1,6 @@
 /* Basic navbar styling */
 .navbar {
-  background-color: #f8f9fa; /* Light background */
+  background-color: #000000; /* Light background */
   padding: 0.75rem 1.5rem;
   border-bottom: 1px solid #dee2e6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -9,6 +9,7 @@
 .navbar-brand {
   font-weight: bold;
   font-size: 1.4rem;
+  color: #ffffff;
 }
 
 .navbar-brand span {
@@ -19,6 +20,7 @@
   font-size: 1rem;
   margin-right: 1rem;
   transition: color 0.2s ease;
+  color: #ffffff;
 }
 
 .nav-link:hover,

@@ -29,7 +29,7 @@ export class FlowComponent {
 
   // parameters for temperature evolution calculation
   viscosity = 1e-3;
-  dt = 1e-5;
+  dt = 1e-4;
   steps = 1000;
 
   constructor(private http: HttpClient) {}
