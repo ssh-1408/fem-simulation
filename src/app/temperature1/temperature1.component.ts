@@ -12,8 +12,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class Temperature1Component {
 
-  private readonly API_BASE_URL = 'https://dg06jtexwx6ry.cloudfront.net';
-
   physicalWidth = 0.04;  // meters
   physicalHeight = 0.02; // meters
   widthNumber = 200;  // grid points along width
@@ -47,7 +45,7 @@ export class Temperature1Component {
       boundaryTemps: this.boundaryTemps
     };
 
-    this.http.post<any>(`${this.API_BASE_URL}/simulate`, body).subscribe({
+    this.http.post<any>('http://localhost:8000/simulate', body).subscribe({
       next: (res) => {
         this.heatGrid = res.grid;
         this.initialImage = 'data:image/png;base64,' + res.image;
@@ -69,7 +67,7 @@ export class Temperature1Component {
     boundaryTemps: this.boundaryTemps
   };
 
-  this.http.post<any>(`${this.API_BASE_URL}/simulate_evolution`, body).subscribe({
+  this.http.post<any>('http://localhost:8000/simulate_evolution', body).subscribe({
     next: (res) => {
       if (res.image) {
         this.evolvedImage = 'data:image/png;base64,' + res.image;
