@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class FlowComponent {
 
+  private readonly API_BASE_URL = 'https://dg06jtexwx6ry.cloudfront.net';
+
   physicalWidth = 0.6;  // meters
   physicalHeight = 0.1; // meters
   widthNumber = 600;  // grid points along width
@@ -47,7 +49,7 @@ export class FlowComponent {
   };
 
 
-    this.http.post<any>('http://localhost:8000/simulate_flow', body).subscribe({
+    this.http.post<any>(`${this.API_BASE_URL}/simulate_flow`, body).subscribe({
       next: (res) => {
         this.heatGrid = res.grid;
         this.initialImageFlow = 'data:image/png;base64,' + res.image;
@@ -72,7 +74,7 @@ export class FlowComponent {
   }
 };
 
-  this.http.post<any>('http://localhost:8000/simulate_evolution_flow', body).subscribe({
+  this.http.post<any>(`${this.API_BASE_URL}/simulate_evolution_flow`, body).subscribe({
     next: (res) => {
       if (res.image) {
         this.evolvedImageFlow = 'data:image/png;base64,' + res.image;

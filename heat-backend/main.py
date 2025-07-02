@@ -48,9 +48,15 @@ class FlowEvolutionRequest(FlowGridRequest):
     steps: int 
 
 # --- FastAPI app setup ---
-app = FastAPI()
+application = FastAPI()
 
-app.add_middleware(
+origins = [
+    "https://d28xpuvwyp5flz.cloudfront.net", # CloudFront domain
+    # "http://localhost:4200", # For local Angular development
+   
+]
+
+application.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -80,7 +86,7 @@ def generate_map(data: np.ndarray, title: str = "") -> str:
 
 
 # --- Endpoint ---
-@app.post("/simulate")
+@application.post("/simulate")
 def simulate_heat(req: InitialGridRequest):
     w, h = req.widthNumber, req.heightNumber
     top, bottom = req.boundaryTemps.top, req.boundaryTemps.bottom
@@ -103,7 +109,7 @@ def simulate_heat(req: InitialGridRequest):
     }
 
 
-@app.post("/simulate_evolution")
+@application.post("/simulate_evolution")
 def simulate_heat_evolution(req: GridEvolutionRequest):
     w, h = req.widthNumber, req.heightNumber
     alpha, dt, steps = req.alpha, req.dt, req.steps
@@ -144,7 +150,7 @@ def simulate_heat_evolution(req: GridEvolutionRequest):
         "image": image
     }
 
-@app.post("/simulate_flow")
+@application.post("/simulate_flow")
 def simulate_flow(req: FlowGridRequest):
     w, h = req.widthNumber, req.heightNumber
     dx = req.physicalWidth / w
@@ -164,7 +170,7 @@ def simulate_flow(req: FlowGridRequest):
         "image": image
     }
 
-@app.post("/simulate_evolution_flow")
+@application.post("/simulate_evolution_flow")
 def simulate_evolution_flow(req: FlowEvolutionRequest):
     w, h = req.widthNumber, req.heightNumber
     nu, dt, steps = req.viscosity, req.dt, req.steps
