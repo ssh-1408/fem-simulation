@@ -51,8 +51,7 @@ class FlowEvolutionRequest(FlowGridRequest):
 application = FastAPI()
 
 origins = [
-    "https://d28xpuvwyp5flz.cloudfront.net", # CloudFront domain
-    # "http://localhost:4200", # For local Angular development
+    "http://localhost:4200", # For local Angular development
    
 ]
 

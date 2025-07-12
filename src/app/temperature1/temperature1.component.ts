@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Temperature1Component {
 
-  private readonly API_BASE_URL = 'https://dg06jtexwx6ry.cloudfront.net';
+  private readonly API_BASE_URL = 'http://localhost:8000/api';
 
   physicalWidth = 0.04;  // meters
   physicalHeight = 0.02; // meters
@@ -47,7 +47,7 @@ export class Temperature1Component {
       boundaryTemps: this.boundaryTemps
     };
 
-    this.http.post<any>(`${this.API_BASE_URL}/simulate`, body).subscribe({
+    this.http.post<any>(`${this.API_BASE_URL}/simulate/`, body).subscribe({
       next: (res) => {
         this.heatGrid = res.grid;
         this.initialImage = 'data:image/png;base64,' + res.image;
@@ -69,18 +69,40 @@ export class Temperature1Component {
     boundaryTemps: this.boundaryTemps
   };
 
-  this.http.post<any>(`${this.API_BASE_URL}/simulate_evolution`, body).subscribe({
+  this.http.post<any>(`${this.API_BASE_URL}/simulate/evolution/`, body).subscribe({
     next: (res) => {
-      if (res.image) {
-        this.evolvedImage = 'data:image/png;base64,' + res.image;
-        this.showGrid = true;
+      if (res.task_id) {
+        console.log(`Task submitted: ${res.task_id}`);
+        this.pollTask(res.task_id);
       } else {
-        console.error('No image returned from backend');
-        this.evolvedImage = null;
+        console.error('No task_id returned');
       }
     },
-    error: (err) => console.error('API error (evolution):', err)
+    error: (err) => console.error('API error (evolution submit):', err)
   });
+}
+
+pollTask(taskId: string) {
+  const interval = setInterval(() => {
+    this.http.get<any>(`${this.API_BASE_URL}/simulate/task-status/${taskId}/`).subscribe({
+      next: (res) => {
+        if (res.status === 'SUCCESS' && res.result?.image) {
+          this.evolvedImage = 'data:image/png;base64,' + res.result.image;
+          this.showGrid = true;
+          clearInterval(interval);
+        } else if (res.status === 'FAILURE') {
+          console.error('Task failed:', res.result?.error || 'Unknown error');
+          clearInterval(interval);
+        } else {
+          console.log(`Task ${taskId} still running…`);
+        }
+      },
+      error: (err) => {
+        console.error('Error polling task:', err);
+        clearInterval(interval);
+      }
+    });
+  }, 2000); // poll every 2 seconds
 }
 
 }
